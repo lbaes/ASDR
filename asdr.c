@@ -1,6 +1,21 @@
 /*  
     ASDR - Analisador Sintático Descendente Recursivo Preditivo
 
+    Entrega de trabalho - Nome do trabalho
+
+    Nós,
+
+    Lucas Franchini Baes 31849202
+    Zewu Chen            31808751
+
+    declaramos que
+
+    todas as respostas são fruto de nosso próprio trabalho,
+    não copiamos respostas de colegas externos à equipe,
+    não disponibilizamos nossas respostas para colegas externos à equipe e
+    não realizamos quaisquer outras atividades desonestas para nos beneficiar ou prejudicar outros.
+
+
     Gramatica:
 
     E ::= TA
@@ -43,8 +58,10 @@ int main(void)
     char *pstart;
     char *palavra;
 	
-	//palavra = "((1+2)*(3*4)+5+6)";
-    palavra = "((1+2)*3)";
+	//palavra = "((1+2)*(3*4)+5+6)";    //ok
+    //palavra = "((1+2)*3)";            //ok
+    //palavra = "(1+2+3+4+5+6+7+8+9)";  //ok
+    palavra = "(1*(2+3))";
 	pstart = palavra;
 	
     F(&palavra);
@@ -125,7 +142,7 @@ void T(char **palavra)
         B(palavra);
         break;
     default:
-        printf("Expected symbol but found <empty> !!\n");
+        printf("Expected a symbol but found <empty> !!\n");
         exit(EXIT_FAILURE);
     }
 }
@@ -162,7 +179,7 @@ void E(char **palavra)
         A(palavra);
         break;
     default:
-        printf("Expected symbol but found <empty> !!\n");
+        printf("Expected a symbol but found <empty> !!\n");
         exit(EXIT_FAILURE);
     }
 }
