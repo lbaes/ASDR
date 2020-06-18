@@ -61,10 +61,10 @@ int main(void)
 	//palavra = "((1+2)*(3*4)+5+6)";    //ok
     //palavra = "((1+2)*3)";            //ok
     //palavra = "(1+2+3+4+5+6+7+8+9)";  //ok
-    palavra = "(1*(2+3))";
+    palavra = "1*2+3";
 	pstart = palavra;
 	
-    F(&palavra);
+    E(&palavra);
     if (*palavra == '\0')
     {
         printf("%s aceita..\n", pstart);
