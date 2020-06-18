@@ -53,15 +53,20 @@ void T(char **palavra);
 void B(char **palavra);
 void F(char **palavra);
 
-int main(void)
+int main(int argc, char *argv[])
 {
     char *pstart;
     char *palavra;
 
-    //palavra = "((1+2)*(3*4)+5+6)";    //ok
-    //palavra = "((1+2)*3)";            //ok
-    //palavra = "(1+2+3+4+5+6+7+8+9)";  //ok
-    palavra = "1*2+3";
+    if (argc < 2){
+        //palavra = "((1+2)*(3*4)+5+6)";    //ok
+        //palavra = "((1+2)*3)";            //ok
+        //palavra = "(1+2+3+4+5+6+7+8+9)";  //ok
+        palavra = "1*2+3";
+    }else{
+        palavra = argv[1];
+    }
+    
     pstart = palavra;
 
     E(&palavra);
