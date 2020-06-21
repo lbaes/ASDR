@@ -1,8 +1,6 @@
 /*  
     ASDR - Analisador Sintático Descendente Recursivo Preditivo
 
-    Entrega de trabalho - Nome do trabalho
-
     Nós,
 
     Lucas Franchini Baes 31849202
@@ -35,13 +33,19 @@
     FIRST(T) = {(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
     FIRST(E) = {(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
-    palavras = "((1 + 2) + 3) => F => (E) => (TA) => (FBA) => ((E)BA) => ((TA)BA) 
-                =>((FBA)BA) => ((1+TA)BA) => ((1+FBA)BA) => ((1+2BA)BA) => 
-                ((1+2A)BA) => ((1+2)BA) => 
-                ((1+2)+TA) => ((1+2)+FBA) => 
-                ((1+2)+3BA) => ((1+2)+3A) => ((1+2)+3)
+    Exemplos de palavras reconhecidas
+        (1*(2))
+        (1+2)
+        1*(2+3)
+
     
-    p2 = "(15+2)" => F (E) => (TA) => (FBA) => (1BA) => (1A) => (1)
+    Exemplos de palavras nao reconhecidas :
+        (1*(2+3)
+        1+(A))
+        (7+7)*)3
+        15+20
+        15*56
+
 */
 
 #include <stdio.h>
@@ -58,11 +62,11 @@ int main(int argc, char *argv[])
     char *pstart;
     char *palavra;
 
+    // Se nao recebeu uma palavra pelo argumento use a padrao
     if (argc < 2){
-        //palavra = "((1+2)*(3*4)+5+6)";    //ok
-        //palavra = "((1+2)*3)";            //ok
-        //palavra = "(1+2+3+4+5+6+7+8+9)";  //ok
-        palavra = "1*2+3";
+        //palavra = (1*(2));
+        //palavra = (1+2);
+        palavra = "1*(2+3)";
     }else{
         palavra = argv[1];
     }
@@ -72,11 +76,11 @@ int main(int argc, char *argv[])
     E(&palavra);
     if (*palavra == '\0')
     {
-        printf("%s aceita..\n", pstart);
+        printf("%s foi aceita\n", pstart);
     }
     else
     {
-        printf("%s houve um erro..\n", pstart);
+        printf("%s nao foi aceita, houve um erro\n", pstart);
     }
     return 0;
 }
@@ -94,7 +98,7 @@ void F(char **palavra)
         }
         else
         {
-            printf("Expected ) but found %c !!\n", **palavra);
+            printf("ERRO!! Esperava um ) mas encontrei %c !!\n", **palavra);
             exit(EXIT_FAILURE);
         }
         break;
@@ -110,7 +114,7 @@ void F(char **palavra)
         (*palavra)++;
         break;
     default:
-        printf("Expected symbol but found <empty> !!\n");
+        printf("ERRO!! Esperava um simbolo mas achei %c !!\n", **palavra);
         exit(EXIT_FAILURE);
     }
 }
@@ -147,7 +151,7 @@ void T(char **palavra)
         B(palavra);
         break;
     default:
-        printf("Expected a symbol but found <empty> !!\n");
+        printf("ERRO!! Esperava um simbolo mas achei %c !!\n", **palavra);
         exit(EXIT_FAILURE);
     }
 }
@@ -184,7 +188,7 @@ void E(char **palavra)
         A(palavra);
         break;
     default:
-        printf("Expected a symbol but found <empty> !!\n");
+        printf("ERRO!! Esperava um simbolo mas achei %c !!\n", **palavra);
         exit(EXIT_FAILURE);
     }
 }
